@@ -20,6 +20,7 @@
 
 #define _GNU_SOURCE
 #include <va/va_backend.h>
+#include <va/va_version.h>
 #include <va/va_drmcommon.h>
 #include <rockchip/rk_mpi.h>
 #include <rockchip/mpp_frame.h>
@@ -165,7 +166,7 @@ static MppCodingType profile_to_coding(VAProfile p) {
     case VAProfileH264ConstrainedBaseline:
     case VAProfileH264Main:
     case VAProfileH264High:
-#ifdef VAProfileH264High10
+#if VA_MAJOR_VERSION > 1 || (VA_MAJOR_VERSION == 1 && VA_MINOR_VERSION >= 13)
     case VAProfileH264High10:
 #endif
         return MPP_VIDEO_CodingAVC;
@@ -185,7 +186,7 @@ static int profile_idc(VAProfile p) {
     case VAProfileH264ConstrainedBaseline: return 66;
     case VAProfileH264Main:                return 77;
     case VAProfileH264High:                return 100;
-#ifdef VAProfileH264High10
+#if VA_MAJOR_VERSION > 1 || (VA_MAJOR_VERSION == 1 && VA_MINOR_VERSION >= 13)
     case VAProfileH264High10:              return 110;
 #endif
     default:                               return 100;
@@ -228,7 +229,7 @@ static VAStatus rk_QueryConfigProfiles(VADriverContextP ctx,
     list[i++] = VAProfileH264ConstrainedBaseline;
     list[i++] = VAProfileH264Main;
     list[i++] = VAProfileH264High;
-#ifdef VAProfileH264High10
+#if VA_MAJOR_VERSION > 1 || (VA_MAJOR_VERSION == 1 && VA_MINOR_VERSION >= 13)
     list[i++] = VAProfileH264High10;
 #endif
     list[i++] = VAProfileHEVCMain;
