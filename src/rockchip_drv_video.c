@@ -23,6 +23,13 @@
 #include <va/va_backend.h>
 #include <va/va_drmcommon.h>
 
+#ifndef VA_MAJOR_VERSION
+#define VA_MAJOR_VERSION 0
+#endif
+#ifndef VA_MINOR_VERSION
+#define VA_MINOR_VERSION 0
+#endif
+
 #ifndef VA_CHECK_VERSION
 #define VA_CHECK_VERSION(major,minor,micro) \
     (VA_MAJOR_VERSION > (major) || \
@@ -173,7 +180,7 @@ static MppCodingType profile_to_coding(VAProfile p) {
     case VAProfileH264ConstrainedBaseline:
     case VAProfileH264Main:
     case VAProfileH264High:
-#if VA_CHECK_VERSION(1, 13, 0)
+#if defined(VA_MAJOR_VERSION) && (VA_MAJOR_VERSION > 1 || (VA_MAJOR_VERSION == 1 && VA_MINOR_VERSION >= 13))
     case VAProfileH264High10:
 #endif
         return MPP_VIDEO_CodingAVC;
@@ -193,7 +200,7 @@ static int profile_idc(VAProfile p) {
     case VAProfileH264ConstrainedBaseline: return 66;
     case VAProfileH264Main:                return 77;
     case VAProfileH264High:                return 100;
-#if VA_CHECK_VERSION(1, 13, 0)
+#if defined(VA_MAJOR_VERSION) && (VA_MAJOR_VERSION > 1 || (VA_MAJOR_VERSION == 1 && VA_MINOR_VERSION >= 13))
     case VAProfileH264High10:              return 110;
 #endif
     default:                               return 100;
@@ -236,7 +243,7 @@ static VAStatus rk_QueryConfigProfiles(VADriverContextP ctx,
     list[i++] = VAProfileH264ConstrainedBaseline;
     list[i++] = VAProfileH264Main;
     list[i++] = VAProfileH264High;
-#if VA_CHECK_VERSION(1, 13, 0)
+#if defined(VA_MAJOR_VERSION) && (VA_MAJOR_VERSION > 1 || (VA_MAJOR_VERSION == 1 && VA_MINOR_VERSION >= 13))
     list[i++] = VAProfileH264High10;
 #endif
     list[i++] = VAProfileHEVCMain;
