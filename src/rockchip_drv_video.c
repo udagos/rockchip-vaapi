@@ -1516,6 +1516,8 @@ static VAStatus rk_GetSurfaceAttributes(VADriverContextP ctx,
 
 /* ── driver init ─────────────────────────────────────────────── */
 
+VAStatus __vaDriverInit_1_0(VADriverContextP ctx) __attribute__((alias("__vaDriverInit_1_20")));
+
 VAStatus __vaDriverInit_1_20(VADriverContextP ctx)  /* NOLINT */
 {
     log_init();
