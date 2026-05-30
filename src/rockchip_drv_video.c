@@ -181,7 +181,7 @@ static MppCodingType profile_to_coding(VAProfile p) {
     case VAProfileH264Main:
     case VAProfileH264High:
 #if VA_CHECK_VERSION(1, 2, 0)
-    case 36: // VAProfileH264High10
+    case (VAProfile)36: // VAProfileH264High10
 #endif
         return MPP_VIDEO_CodingAVC;
     case VAProfileHEVCMain:
@@ -201,7 +201,7 @@ static int profile_idc(VAProfile p) {
     case VAProfileH264Main:                return 77;
     case VAProfileH264High:                return 100;
 #if VA_CHECK_VERSION(1, 2, 0)
-    case 36: // VAProfileH264High10
+    case (VAProfile)36: // VAProfileH264High10
                                            return 110;
 #endif
     default:                               return 100;
@@ -245,7 +245,7 @@ static VAStatus rk_QueryConfigProfiles(VADriverContextP ctx,
     list[i++] = VAProfileH264Main;
     list[i++] = VAProfileH264High;
 #if VA_CHECK_VERSION(1, 2, 0)
-    list[i++] = 36; // VAProfileH264High10
+    list[i++] = (VAProfile)36; // VAProfileH264High10
 #endif
     list[i++] = VAProfileHEVCMain;
     list[i++] = VAProfileHEVCMain10;
